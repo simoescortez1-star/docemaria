@@ -1,0 +1,2798 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doce Maria | Um toque de carinho</title>
+
+    <meta name="description"
+        content="Conheça a Doce Maria, confira nossos produtos e faça seu pedido diretamente pelo WhatsApp.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        /* =========================================================
+           DOCE MARIA — PREMIUM
+        ========================================================= */
+
+        :root {
+            --wine: #702f45;
+            --wine-dark: #4b1f2d;
+            --wine-light: #8f4b62;
+
+            --rose: #c98592;
+            --rose-light: #ead0d4;
+            --rose-soft: #f5e5e5;
+
+            --cream: #fffaf7;
+            --cream-2: #f8efeb;
+
+            --gold: #b9965b;
+            --gold-light: #d8bf91;
+
+            --text: #39272d;
+            --muted: #806d72;
+
+            --white: #ffffff;
+
+            --shadow:
+                0 25px 70px rgba(86, 38, 55, .13);
+
+            --shadow-soft:
+                0 15px 45px rgba(86, 38, 55, .08);
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+
+        /* =========================================================
+           LOADER
+        ========================================================= */
+
+        .loader {
+            position: fixed;
+            inset: 0;
+
+            background: var(--wine-dark);
+
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition:
+                opacity .8s ease,
+                visibility .8s ease;
+        }
+
+        .loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+
+            animation: loaderPulse 1.6s ease-in-out infinite;
+        }
+
+        .loader-logo {
+            width: 90px;
+            height: 90px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            margin: 0 auto 20px;
+
+            border: 3px solid rgba(255,255,255,.7);
+
+            box-shadow:
+                0 0 0 8px rgba(255,255,255,.06),
+                0 15px 40px rgba(0,0,0,.25);
+        }
+
+        .loader-title {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 34px;
+            letter-spacing: 2px;
+        }
+
+        .loader-line {
+            width: 80px;
+            height: 1px;
+
+            background: var(--gold-light);
+
+            margin: 12px auto;
+        }
+
+        .loader-sub {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: .7;
+        }
+
+
+        /* =========================================================
+           BACKGROUND DECORATIONS
+        ========================================================= */
+
+        .background-decoration {
+            position: fixed;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            filter: blur(2px);
+
+            opacity: .45;
+        }
+
+        .decoration-1 {
+            width: 420px;
+            height: 420px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(201,133,146,.18),
+                    transparent 70%
+                );
+
+            top: -160px;
+            right: -130px;
+        }
+
+        .decoration-2 {
+            width: 380px;
+            height: 380px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(112,47,69,.10),
+                    transparent 70%
+                );
+
+            bottom: 5%;
+            left: -170px;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            padding: 18px 5%;
+
+            z-index: 500;
+
+            transition:
+                background .4s ease,
+                padding .4s ease,
+                box-shadow .4s ease;
+        }
+
+        header.scrolled {
+            padding: 11px 5%;
+
+            background:
+                rgba(255,250,247,.78);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            box-shadow:
+                0 10px 35px rgba(60,30,40,.07);
+        }
+
+        .nav {
+            max-width: 1250px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 25px;
+            font-weight: 700;
+
+            color: var(--wine-dark);
+        }
+
+        .brand img {
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 6px 20px rgba(86,38,55,.15);
+
+            transition: .4s ease;
+        }
+
+        header.scrolled .brand img {
+            width: 43px;
+            height: 43px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            color: var(--text);
+        }
+
+        .nav-links a {
+            position: relative;
+        }
+
+        .nav-links a:not(.nav-cta)::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -6px;
+
+            width: 0;
+            height: 1px;
+
+            background: var(--wine);
+
+            transition: width .3s ease;
+        }
+
+        .nav-links a:not(.nav-cta):hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--wine),
+                    var(--wine-light)
+                );
+
+            padding: 12px 19px;
+
+            border-radius: 999px;
+
+            box-shadow:
+                0 8px 25px rgba(112,47,69,.20);
+
+            transition: .35s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 14px 32px rgba(112,47,69,.30);
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+
+            padding:
+                150px
+                6%
+                100px;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1250px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, .95fr);
+
+            gap: 80px;
+
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 9px 15px;
+
+            border:
+                1px solid
+                rgba(112,47,69,.12);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255,255,255,.55);
+
+            backdrop-filter: blur(10px);
+
+            color: var(--wine);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 2px;
+
+            margin-bottom: 25px;
+
+            opacity: 0;
+            transform: translateY(20px);
+
+            animation:
+                reveal .9s .2s forwards;
+        }
+
+        .hero-tag i {
+            width: 6px;
+            height: 6px;
+
+            background: var(--gold);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 5px rgba(185,150,91,.10);
+        }
+
+        .hero h1 {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size:
+                clamp(58px, 7vw, 94px);
+
+            line-height: .86;
+
+            font-weight: 700;
+
+            color: var(--wine-dark);
+
+            letter-spacing: -2px;
+
+            margin-bottom: 28px;
+
+            opacity: 0;
+            transform: translateY(30px);
+
+            animation:
+                reveal 1s .35s forwards;
+        }
+
+        .hero h1 .highlight {
+            color: var(--rose);
+
+            font-style: italic;
+
+            position: relative;
+        }
+
+        .hero h1 .highlight::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -7px;
+
+            width: 100%;
+            height: 8px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(201,133,146,.25),
+                    transparent
+                );
+
+            transform: scaleX(0);
+
+            transform-origin: left;
+
+            animation:
+                underline 1s 1.4s forwards;
+        }
+
+        .hero-description {
+            max-width: 520px;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            color: var(--muted);
+
+            margin-bottom: 34px;
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            animation:
+                reveal .9s .55s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            animation:
+                reveal .9s .7s forwards;
+        }
+
+        .button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 15px 23px;
+
+            border-radius: 999px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition:
+                transform .35s ease,
+                box-shadow .35s ease;
+        }
+
+        .button-primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--wine),
+                    var(--wine-light)
+                );
+
+            box-shadow:
+                0 15px 35px rgba(112,47,69,.22);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 20px 45px rgba(112,47,69,.30);
+        }
+
+        .button-secondary {
+            border:
+                1px solid
+                rgba(112,47,69,.16);
+
+            background:
+                rgba(255,255,255,.5);
+
+            backdrop-filter: blur(10px);
+
+            color: var(--wine);
+        }
+
+        .button-secondary:hover {
+            background: white;
+
+            transform: translateY(-4px);
+
+            box-shadow: var(--shadow-soft);
+        }
+
+
+        /* =========================================================
+           HERO VISUAL
+        ========================================================= */
+
+        .hero-visual {
+            position: relative;
+
+            opacity: 0;
+            transform:
+                translateX(40px)
+                scale(.96);
+
+            animation:
+                visualReveal 1.2s .45s forwards;
+        }
+
+        .hero-image-frame {
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 4 / 5;
+
+            border-radius: 38px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f4dfdf,
+                    #fff8f5
+                );
+
+            box-shadow:
+                0 35px 80px rgba(76,31,45,.16);
+
+            transform: rotate(1.5deg);
+
+            transition:
+                transform .7s cubic-bezier(.2,.8,.2,1);
+        }
+
+        .hero-visual:hover .hero-image-frame {
+            transform:
+                rotate(0deg)
+                scale(1.015);
+        }
+
+        .hero-image-frame::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            z-index: 2;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    transparent 65%,
+                    rgba(45,15,25,.25)
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-image-frame img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform 1s ease;
+        }
+
+        .hero-visual:hover img {
+            transform: scale(1.055);
+        }
+
+        .hero-badge {
+            position: absolute;
+
+            left: -30px;
+            bottom: 35px;
+
+            z-index: 5;
+
+            padding: 17px 21px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,.82);
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 45px rgba(60,30,40,.16);
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            animation:
+                floating 4s ease-in-out infinite;
+        }
+
+        .badge-icon {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 50%;
+
+            background: var(--rose-soft);
+
+            display: grid;
+            place-items: center;
+
+            color: var(--wine);
+
+            font-size: 19px;
+        }
+
+        .hero-badge strong {
+            display: block;
+
+            font-size: 13px;
+
+            color: var(--wine-dark);
+
+            margin-bottom: 3px;
+        }
+
+        .hero-badge span {
+            font-size: 10px;
+
+            color: var(--muted);
+        }
+
+        .gold-orb {
+            position: absolute;
+
+            right: -30px;
+            top: 50px;
+
+            width: 75px;
+            height: 75px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 30% 30%,
+                    #f5dfb2,
+                    var(--gold)
+                );
+
+            box-shadow:
+                0 15px 35px rgba(185,150,91,.25);
+
+            animation:
+                floating 5s 1s ease-in-out infinite;
+        }
+
+
+        /* =========================================================
+           SCROLL INDICATOR
+        ========================================================= */
+
+        .scroll-indicator {
+            position: absolute;
+
+            bottom: 28px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            opacity: .7;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+
+            background:
+                linear-gradient(
+                    var(--wine),
+                    transparent
+                );
+
+            animation:
+                scrollLine 1.8s ease-in-out infinite;
+        }
+
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        section {
+            padding:
+                120px 6%;
+        }
+
+        .section-container {
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        .section-header {
+            max-width: 650px;
+
+            margin:
+                0 auto 65px;
+
+            text-align: center;
+
+            opacity: 0;
+            transform: translateY(30px);
+
+            transition:
+                opacity .9s ease,
+                transform .9s ease;
+        }
+
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .eyebrow {
+            color: var(--rose);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+        }
+
+        .section-header h2 {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size:
+                clamp(42px, 5vw, 64px);
+
+            line-height: .95;
+
+            color: var(--wine-dark);
+
+            margin: 13px 0 16px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           PRODUCTS
+        ========================================================= */
+
+        .products-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    #fffaf7,
+                    #fff
+                );
+        }
+
+        .products-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+        }
+
+        .product-card {
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 27px;
+
+            background:
+                rgba(255,255,255,.72);
+
+            border:
+                1px solid
+                rgba(112,47,69,.08);
+
+            box-shadow:
+                0 10px 40px rgba(70,30,45,.055);
+
+            opacity: 0;
+            transform:
+                translateY(45px)
+                scale(.97);
+
+            transition:
+                opacity .7s ease,
+                transform .7s cubic-bezier(.2,.8,.2,1),
+                box-shadow .4s ease;
+        }
+
+        .product-card.visible {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .product-card:hover {
+            transform:
+                translateY(-10px)
+                scale(1.01);
+
+            box-shadow:
+                0 25px 60px rgba(70,30,45,.13);
+        }
+
+        .product-image {
+            position: relative;
+
+            overflow: hidden;
+
+            aspect-ratio: 1 / 1;
+
+            background: var(--rose-soft);
+        }
+
+        .product-image::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,.25),
+                    transparent 45%
+                );
+
+            pointer-events: none;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform .8s
+                cubic-bezier(.2,.8,.2,1);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-content {
+            padding: 21px;
+        }
+
+        .product-number {
+            color: var(--gold);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+        .product-content h3 {
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            color: var(--wine-dark);
+
+            font-size: 25px;
+
+            margin:
+                5px 0 6px;
+        }
+
+        .product-content p {
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.55;
+
+            margin-bottom: 17px;
+        }
+
+        .product-link {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            color: var(--wine);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+
+            padding-top: 13px;
+
+            border-top:
+                1px solid
+                rgba(112,47,69,.08);
+
+            transition: .3s ease;
+        }
+
+        .product-link span:last-child {
+            transition: transform .3s ease;
+        }
+
+        .product-card:hover
+        .product-link span:last-child {
+            transform: translateX(5px);
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-section {
+            background: var(--cream-2);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .about-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 90px;
+
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+
+            opacity: 0;
+            transform: translateX(-35px);
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease;
+        }
+
+        .about-visual.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image {
+            width: 100%;
+
+            aspect-ratio: 1 / .9;
+
+            object-fit: cover;
+
+            border-radius: 35px;
+
+            box-shadow: var(--shadow);
+
+            transform: rotate(-1deg);
+
+            transition: .5s ease;
+        }
+
+        .about-visual:hover .about-image {
+            transform:
+                rotate(0)
+                scale(1.015);
+        }
+
+        .about-frame {
+            position: absolute;
+
+            inset: 18px -18px -18px 18px;
+
+            border:
+                1px solid
+                rgba(112,47,69,.15);
+
+            border-radius: 35px;
+
+            z-index: -1;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(35px);
+
+            transition:
+                opacity 1s .15s ease,
+                transform 1s .15s ease;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-text .eyebrow {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .about-text h2 {
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            color: var(--wine-dark);
+
+            font-size:
+                clamp(45px, 5vw, 66px);
+
+            line-height: .9;
+
+            margin-bottom: 25px;
+        }
+
+        .about-text h2 em {
+            color: var(--rose);
+        }
+
+        .about-text p {
+            color: var(--muted);
+
+            line-height: 1.8;
+
+            font-size: 14px;
+
+            margin-bottom: 17px;
+
+            max-width: 500px;
+        }
+
+        .about-feature {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            margin:
+                24px 0 30px;
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            color: var(--wine);
+
+            background: var(--rose-soft);
+        }
+
+        .feature-text strong {
+            display: block;
+
+            font-size: 12px;
+
+            color: var(--wine-dark);
+
+            margin-bottom: 3px;
+        }
+
+        .feature-text span {
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        /* =========================================================
+           QUOTE
+        ========================================================= */
+
+        .quote-section {
+            padding: 110px 6%;
+
+            text-align: center;
+
+            background: white;
+        }
+
+        .quote {
+            max-width: 850px;
+
+            margin: auto;
+
+            opacity: 0;
+            transform: translateY(30px);
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease;
+        }
+
+        .quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quote-mark {
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 80px;
+
+            color: var(--rose);
+
+            line-height: .4;
+        }
+
+        .quote p {
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(30px, 4vw, 48px);
+
+            line-height: 1.05;
+
+            color: var(--wine-dark);
+
+            margin: 25px 0;
+        }
+
+        .quote small {
+            color: var(--gold);
+
+            text-transform: uppercase;
+
+            letter-spacing: 3px;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta-section {
+            padding:
+                90px 6%
+                120px;
+
+            background: var(--cream);
+        }
+
+        .cta-box {
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding:
+                80px 40px;
+
+            border-radius: 40px;
+
+            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(255,255,255,.13),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--wine-dark),
+                    var(--wine)
+                );
+
+            box-shadow:
+                0 35px 80px rgba(75,31,45,.22);
+
+            opacity: 0;
+            transform: translateY(35px);
+
+            transition:
+                opacity .9s ease,
+                transform .9s ease;
+        }
+
+        .cta-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-decoration {
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,.10);
+        }
+
+        .cta-decoration.one {
+            left: -160px;
+            top: -170px;
+        }
+
+        .cta-decoration.two {
+            right: -180px;
+            bottom: -190px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content .eyebrow {
+            color: var(--gold-light);
+        }
+
+        .cta-content h2 {
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(45px, 6vw, 70px);
+
+            line-height: .9;
+
+            margin:
+                12px 0 18px;
+        }
+
+        .cta-content p {
+            max-width: 550px;
+
+            margin:
+                auto auto 30px;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+
+            opacity: .78;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 11px;
+
+            background: white;
+
+            color: var(--wine);
+
+            padding:
+                16px 25px;
+
+            border-radius: 999px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.16);
+
+            transition: .35s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform:
+                translateY(-4px)
+                scale(1.02);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.23);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            background: #321c26;
+
+            color: white;
+
+            padding:
+                45px 6%;
+        }
+
+        .footer-inner {
+            max-width: 1250px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 23px;
+
+            font-weight: 700;
+        }
+
+        .footer-brand img {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+        }
+
+        .footer-copy {
+            font-size: 10px;
+
+            color:
+                rgba(255,255,255,.5);
+        }
+
+
+        /* =========================================================
+           FLOAT WHATSAPP
+        ========================================================= */
+
+        .floating-whatsapp {
+            position: fixed;
+
+            right: 24px;
+            bottom: 24px;
+
+            width: 60px;
+            height: 60px;
+
+            border-radius: 50%;
+
+            display: grid;
+            place-items: center;
+
+            background: #25D366;
+
+            color: white;
+
+            font-size: 24px;
+
+            z-index: 900;
+
+            box-shadow:
+                0 12px 35px rgba(37,211,102,.35);
+
+            animation:
+                whatsappPulse 2.7s infinite;
+
+            transition: .3s ease;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+
+            animation-play-state: paused;
+        }
+
+
+        /* =========================================================
+           KEYFRAMES
+        ========================================================= */
+
+        @keyframes reveal {
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes visualReveal {
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0)
+                    scale(1);
+            }
+
+        }
+
+        @keyframes underline {
+
+            to {
+                transform: scaleX(1);
+            }
+
+        }
+
+        @keyframes floating {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+        }
+
+        @keyframes loaderPulse {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.025);
+            }
+
+        }
+
+        @keyframes scrollLine {
+
+            0% {
+                opacity: 0;
+                transform: scaleY(.5);
+                transform-origin: top;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scaleY(.5);
+                transform-origin: bottom;
+            }
+
+        }
+
+        @keyframes whatsappPulse {
+
+            0% {
+                box-shadow:
+                    0 12px 35px rgba(37,211,102,.35),
+                    0 0 0 0 rgba(37,211,102,.35);
+            }
+
+            70% {
+                box-shadow:
+                    0 12px 35px rgba(37,211,102,.35),
+                    0 0 0 15px rgba(37,211,102,0);
+            }
+
+            100% {
+                box-shadow:
+                    0 12px 35px rgba(37,211,102,.35),
+                    0 0 0 0 rgba(37,211,102,0);
+            }
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media(max-width: 1000px) {
+
+            .nav-links {
+                gap: 18px;
+            }
+
+            .hero-container {
+                gap: 45px;
+            }
+
+            .products-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .about-grid {
+                gap: 55px;
+            }
+
+        }
+
+
+        @media(max-width: 760px) {
+
+            header {
+                padding: 13px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .brand {
+                font-size: 22px;
+            }
+
+            .hero {
+                padding:
+                    125px
+                    5%
+                    75px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+
+                gap: 50px;
+            }
+
+            .hero h1 {
+                font-size:
+                    clamp(55px, 16vw, 75px);
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-visual {
+                max-width: 600px;
+
+                width: 90%;
+
+                margin: auto;
+            }
+
+            .hero-badge {
+                left: -8px;
+            }
+
+            .gold-orb {
+                right: -15px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            section {
+                padding:
+                    85px 5%;
+            }
+
+            .products-grid {
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 12px;
+            }
+
+            .product-content {
+                padding: 15px;
+            }
+
+            .product-content h3 {
+                font-size: 22px;
+            }
+
+            .product-content p {
+                font-size: 11px;
+            }
+
+            .product-link {
+                font-size: 9px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+
+                gap: 50px;
+            }
+
+            .about-frame {
+                inset: 10px -10px -10px 10px;
+            }
+
+            .quote-section {
+                padding:
+                    85px 5%;
+            }
+
+            .cta-section {
+                padding:
+                    65px 5%
+                    90px;
+            }
+
+            .cta-box {
+                padding:
+                    65px 22px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+
+                text-align: center;
+            }
+
+            .floating-whatsapp {
+                width: 55px;
+                height: 55px;
+
+                right: 17px;
+                bottom: 17px;
+            }
+
+        }
+
+
+        @media(max-width: 420px) {
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                aspect-ratio: 1.15 / 1;
+            }
+
+            .hero-image-frame {
+                border-radius: 27px;
+            }
+
+        }
+
+
+        /* =========================================================
+           ACESSIBILIDADE / REDUZIR MOVIMENTO
+        ========================================================= */
+
+        @media(prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body class="loading">
+
+
+    <!-- =========================================================
+         LOADER
+    ========================================================= -->
+
+    <div class="loader" id="loader">
+
+        <div class="loader-content">
+
+            <img
+                src="imagens/logo.jpg"
+                class="loader-logo"
+                alt="Doce Maria">
+
+            <div class="loader-title">
+                Doce Maria
+            </div>
+
+            <div class="loader-line"></div>
+
+            <div class="loader-sub">
+                Um toque de carinho
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DECORAÇÕES -->
+
+    <div class="background-decoration decoration-1"></div>
+    <div class="background-decoration decoration-2"></div>
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <header id="header">
+
+        <nav class="nav">
+
+            <a href="#" class="brand">
+
+                <img
+                    src="imagens/logo.jpg"
+                    alt="Logo Doce Maria">
+
+                <span>
+                    Doce Maria
+                </span>
+
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="#produtos">
+                    Produtos
+                </a>
+
+                <a href="#sobre">
+                    Nossa história
+                </a>
+
+                <a href="#contato">
+                    Contato
+                </a>
+
+                <a
+                    href="https://wa.me/5516994416460"
+                    target="_blank"
+                    class="nav-cta">
+
+                    Pedir pelo WhatsApp
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-container">
+
+
+                <div class="hero-content">
+
+                    <div class="hero-tag">
+
+                        <i></i>
+
+                        Feito com carinho
+
+                    </div>
+
+
+                    <h1>
+
+                        Pequenos momentos.
+                        <br>
+
+                        Grandes
+                        <span class="highlight">
+                            sabores.
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        Descubra os produtos da Doce Maria,
+                        preparados para transformar momentos
+                        simples em lembranças especiais.
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#produtos"
+                            class="button button-primary">
+
+                            Conhecer produtos
+
+                            <span>↓</span>
+
+                        </a>
+
+
+                        <a
+                            href="https://wa.me/5516994416460"
+                            target="_blank"
+                            class="button button-secondary">
+
+                            💬 Fazer um pedido
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="hero-visual">
+
+                    <div class="hero-image-frame">
+
+                        <img
+                            src="imagens/produto1.png"
+                            alt="Produto Doce Maria">
+
+                    </div>
+
+
+                    <div class="hero-badge">
+
+                        <div class="badge-icon">
+                            ♡
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Doce Maria
+                            </strong>
+
+                            <span>
+                                Sabor em cada detalhe
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="gold-orb"></div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="scroll-indicator">
+
+                Scroll
+
+                <div class="scroll-line"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PRODUTOS
+        ====================================================== -->
+
+        <section
+            class="products-section"
+            id="produtos">
+
+            <div class="section-container">
+
+
+                <div class="section-header reveal">
+
+                    <span class="eyebrow">
+                        Nosso catálogo
+                    </span>
+
+                    <h2>
+                        Escolha o seu favorito
+                    </h2>
+
+                    <p>
+                        Conheça alguns dos produtos disponíveis
+                        na Doce Maria e faça seu pedido diretamente
+                        pelo WhatsApp.
+                    </p>
+
+                </div>
+
+
+
+                <div class="products-grid">
+
+
+                    <!-- PRODUTO 01 -->
+
+                    <article class="product-card reveal-card">
+
+                        <div class="product-image">
+
+                            <img
+                                src="imagens/produto1.png"
+                                alt="Produto Doce Maria">
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-number">
+                                01 / DOCE MARIA
+                            </span>
+
+                            <h3>
+                                Delícia Especial
+                            </h3>
+
+                            <p>
+                                Uma das opções especiais
+                                da nossa loja.
+                            </p>
+
+                            <a
+                                class="product-link"
+                                href="https://wa.me/5516994416460?text=Olá!%20Vi%20o%20site%20da%20Doce%20Maria%20e%20gostaria%20de%20pedir%20o%20produto%201."
+                                target="_blank">
+
+                                <span>
+                                    Quero pedir
+                                </span>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- PRODUTO 02 -->
+
+                    <article class="product-card reveal-card">
+
+                        <div class="product-image">
+
+                            <img
+                                src="imagens/produto2.png"
+                                alt="Produto Doce Maria">
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-number">
+                                02 / DOCE MARIA
+                            </span>
+
+                            <h3>
+                                Especial da Casa
+                            </h3>
+
+                            <p>
+                                Uma opção preparada com
+                                todo o carinho da Doce Maria.
+                            </p>
+
+                            <a
+                                class="product-link"
+                                href="https://wa.me/5516994416460?text=Olá!%20Vi%20o%20site%20da%20Doce%20Maria%20e%20gostaria%20de%20pedir%20o%20produto%202."
+                                target="_blank">
+
+                                <span>
+                                    Quero pedir
+                                </span>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- PRODUTO 03 -->
+
+                    <article class="product-card reveal-card">
+
+                        <div class="product-image">
+
+                            <img
+                                src="imagens/produto3.png"
+                                alt="Produto Doce Maria">
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-number">
+                                03 / DOCE MARIA
+                            </span>
+
+                            <h3>
+                                Delícia da Maria
+                            </h3>
+
+                            <p>
+                                Sabor e carinho em uma
+                                combinação especial.
+                            </p>
+
+                            <a
+                                class="product-link"
+                                href="https://wa.me/5516994416460?text=Olá!%20Vi%20o%20site%20da%20Doce%20Maria%20e%20gostaria%20de%20pedir%20o%20produto%203."
+                                target="_blank">
+
+                                <span>
+                                    Quero pedir
+                                </span>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- PRODUTO 04 -->
+
+                    <article class="product-card reveal-card">
+
+                        <div class="product-image">
+
+                            <img
+                                src="imagens/produto4.png"
+                                alt="Produto Doce Maria">
+
+                        </div>
+
+                        <div class="product-content">
+
+                            <span class="product-number">
+                                04 / DOCE MARIA
+                            </span>
+
+                            <h3>
+                                Queridinho da Casa
+                            </h3>
+
+                            <p>
+                                Consulte sabores, valores
+                                e disponibilidade.
+                            </p>
+
+                            <a
+                                class="product-link"
+                                href="https://wa.me/5516994416460?text=Olá!%20Vi%20o%20site%20da%20Doce%20Maria%20e%20gostaria%20de%20pedir%20o%20produto%204."
+                                target="_blank">
+
+                                <span>
+                                    Quero pedir
+                                </span>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SOBRE
+        ====================================================== -->
+
+        <section
+            class="about-section"
+            id="sobre">
+
+            <div class="section-container">
+
+                <div class="about-grid">
+
+
+                    <div class="about-visual reveal-side">
+
+                        <div class="about-frame"></div>
+
+                        <img
+                            src="imagens/produto2.png"
+                            class="about-image"
+                            alt="Produtos Doce Maria">
+
+                    </div>
+
+
+
+                    <div class="about-text reveal-side-right">
+
+                        <span class="eyebrow">
+                            Sobre a Doce Maria
+                        </span>
+
+                        <h2>
+
+                            Carinho que
+                            <em>você sente.</em>
+
+                        </h2>
+
+                        <p>
+
+                            Cada produto é pensado para levar
+                            uma experiência especial até você.
+
+                        </p>
+
+                        <p>
+
+                            Aqui você pode conhecer algumas
+                            das nossas opções e falar diretamente
+                            conosco para consultar valores,
+                            disponibilidade e fazer seu pedido.
+
+                        </p>
+
+
+                        <div class="about-feature">
+
+                            <div class="feature-icon">
+                                ✦
+                            </div>
+
+                            <div class="feature-text">
+
+                                <strong>
+                                    Atendimento pelo WhatsApp
+                                </strong>
+
+                                <span>
+                                    Fale diretamente com a loja.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="https://wa.me/5516994416460"
+                            target="_blank"
+                            class="button button-primary">
+
+                            Falar com a Doce Maria
+
+                            <span>
+                                →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FRASE
+        ====================================================== -->
+
+        <section class="quote-section">
+
+            <div class="quote reveal">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+                <p>
+                    Porque os melhores momentos
+                    merecem um toque especial.
+                </p>
+
+                <small>
+                    Doce Maria
+                </small>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CTA
+        ====================================================== -->
+
+        <section
+            class="cta-section"
+            id="contato">
+
+            <div class="cta-box reveal">
+
+                <div class="cta-decoration one"></div>
+                <div class="cta-decoration two"></div>
+
+
+                <div class="cta-content">
+
+                    <span class="eyebrow">
+                        Faça seu pedido
+                    </span>
+
+                    <h2>
+                        Ficou com vontade?
+                    </h2>
+
+                    <p>
+
+                        Entre em contato pelo WhatsApp,
+                        consulte os produtos disponíveis
+                        e faça seu pedido com a Doce Maria.
+
+                    </p>
+
+
+                    <a
+                        href="https://wa.me/5516994416460?text=Olá!%20Vi%20o%20site%20da%20Doce%20Maria%20e%20gostaria%20de%20fazer%20um%20pedido."
+                        target="_blank"
+                        class="whatsapp-button">
+
+                        <span>
+                            💬
+                        </span>
+
+                        Pedir pelo WhatsApp
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <img
+                    src="imagens/logo.jpg"
+                    alt="Doce Maria">
+
+                <span>
+                    Doce Maria
+                </span>
+
+            </div>
+
+
+            <div class="footer-copy">
+
+                © 2026 Doce Maria · Todos os direitos reservados.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         WHATSAPP FLUTUANTE
+    ========================================================= -->
+
+    <a
+        href="https://wa.me/5516994416460"
+        target="_blank"
+        class="floating-whatsapp"
+        aria-label="Abrir WhatsApp">
+
+        💬
+
+    </a>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+
+        /* =====================================================
+           LOADER
+        ===================================================== */
+
+        window.addEventListener("load", () => {
+
+            const loader =
+                document.getElementById("loader");
+
+            setTimeout(() => {
+
+                loader.classList.add("hide");
+
+                document.body.classList.remove("loading");
+
+            }, 900);
+
+        });
+
+
+
+        /* =====================================================
+           HEADER AO ROLAR
+        ===================================================== */
+
+        const header =
+            document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 40) {
+
+                header.classList.add("scrolled");
+
+            } else {
+
+                header.classList.remove("scrolled");
+
+            }
+
+        });
+
+
+
+        /* =====================================================
+           REVEAL GERAL
+        ===================================================== */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+
+        const revealObserver =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add("visible");
+
+                            revealObserver
+                                .unobserve(entry.target);
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: .15
+                }
+
+            );
+
+
+        revealElements.forEach(element => {
+
+            revealObserver.observe(element);
+
+        });
+
+
+
+        /* =====================================================
+           PRODUTOS
+        ===================================================== */
+
+        const productCards =
+            document.querySelectorAll(".reveal-card");
+
+
+        const productObserver =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(entry => {
+
+                        if (!entry.isIntersecting)
+                            return;
+
+
+                        const cards =
+                            [...productCards];
+
+
+                        const index =
+                            cards.indexOf(entry.target);
+
+
+                        setTimeout(() => {
+
+                            entry.target
+                                .classList
+                                .add("visible");
+
+                        }, index * 100);
+
+
+                        productObserver
+                            .unobserve(entry.target);
+
+                    });
+
+                },
+
+                {
+                    threshold: .12
+                }
+
+            );
+
+
+        productCards.forEach(card => {
+
+            productObserver.observe(card);
+
+        });
+
+
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        const sideElements =
+            document.querySelectorAll(
+                ".reveal-side, .reveal-side-right"
+            );
+
+
+        const sideObserver =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target
+                                .classList
+                                .add("visible");
+
+                            sideObserver
+                                .unobserve(entry.target);
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: .15
+                }
+
+            );
+
+
+        sideElements.forEach(element => {
+
+            sideObserver.observe(element);
+
+        });
+
+
+
+        /* =====================================================
+           PARALLAX SUAVE DO HERO
+        ===================================================== */
+
+        const heroVisual =
+            document.querySelector(".hero-visual");
+
+
+        window.addEventListener("mousemove", event => {
+
+            if (window.innerWidth < 900)
+                return;
+
+
+            const x =
+                (event.clientX / window.innerWidth - .5)
+                * 10;
+
+            const y =
+                (event.clientY / window.innerHeight - .5)
+                * 10;
+
+
+            heroVisual.style.transform =
+                `translate(${x}px, ${y}px)`;
+
+        });
+
+
+
+        /* =====================================================
+           SMOOTH ANCHOR
+        ===================================================== */
+
+        document.querySelectorAll(
+            'a[href^="#"]'
+        ).forEach(link => {
+
+            link.addEventListener("click", event => {
+
+                const target =
+                    document.querySelector(
+                        link.getAttribute("href")
+                    );
+
+
+                if (!target)
+                    return;
+
+
+                event.preventDefault();
+
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            });
+
+        });
+
+
+    </script>
+
+</body>
+</html>
+```
